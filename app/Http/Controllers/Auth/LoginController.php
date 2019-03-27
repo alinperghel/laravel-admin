@@ -36,4 +36,15 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    
+    protected function redirectTo(){
+        $requested_page = session()->get('requested_page');;
+        
+        if($requested_page){
+            return session()->get('requested_page');
+        }else{
+            return '/home';
+        }
+        
+    }
 }
