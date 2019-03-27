@@ -101,7 +101,7 @@ class UserController extends Controller
         $user->save();
         
         // return unverify url
-        return json_encode(route('users.unverify', $id));
+        return route('users.unverify', $id);
     }
     
     public function unverify($id){
@@ -109,6 +109,6 @@ class UserController extends Controller
         $user->email_verified_at = null;
         $user->save();
         //return verify url
-        return json_encode(route('users.verify', $id));
+        return route('users.verify', $id);
     }
 }

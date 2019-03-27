@@ -85,28 +85,28 @@
         });//end delete user
 
         //verify user
-        $(".verify-user").click(function (e) {
+        $(document).on('click', '.verify-user', function (e) {
             e.preventDefault();
             var url = $(this).attr('href');
             var button = $(this);
             var parent_object = $(this).parent();
-            
+
             $.get(url, function (data) {
                 button.hide();
-                button.replaceWith("<a class=\"btn btn-warning unverify-user\" href=\""+data+"\">{{ __('Unverify') }}</a>");
+                button.replaceWith("<a class=\"btn btn-warning unverify-user\" href=\"" + data + "\">{{ __('Unverify') }}</a>");
             });
         });
-        
+
         //verify user
-        $(".unverify-user").click(function (e) {
+        $(document).on('click', '.unverify-user', function (e) {
             e.preventDefault();
             var url = $(this).attr('href');
             var button = $(this);
             var parent_object = $(this).parent();
-            
+
             $.get(url, function (data) {
                 button.hide();
-                button.replaceWith("<a class=\"btn btn-success verify-user\" href=\""+data+"\">{{ __('Verify') }}</a>");
+                button.replaceWith("<a class=\"btn btn-success verify-user\" href=\"" + data + "\">{{ __('Verify') }}</a>");
             });
         });
 
