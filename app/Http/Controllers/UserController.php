@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class UserController extends Controller
 {
@@ -23,7 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        echo 'index user hi';
+        return view('users/index')->with('users', User::all());;
     }
 
     /**
@@ -33,7 +34,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        echo ' hi user create';
     }
 
     /**
@@ -66,7 +67,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        echo 'Edit user ' . $id;
     }
 
     /**
@@ -89,6 +90,25 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $response = $user->delete();
+        return json_encode($response);
+    }
+    
+    public function verify($id){
+        $user = User::find($id);
+        $user->email_verified_at = date('Y-m-d H:i:s');
+        $user->save();
+        
+        // return unverify url
+        return json_encode(route('users.unverify', $id));
+    }
+    
+    public function unverify($id){
+        $user = User::find($id);
+        $user->email_verified_at = null;
+        $user->save();
+        //return verify url
+        return json_encode(route('users.verify', $id));
     }
 }

@@ -19,4 +19,6 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('users/verify/{user}', 'UserController@verify')->name('users.verify');
+Route::get('users/unverify/{user}', 'UserController@unverify')->name('users.unverify');
 Route::resource('users', 'UserController');
