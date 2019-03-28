@@ -79,6 +79,15 @@
             </nav>
 
             <main class="py-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-info" role="alert">
+                            <a href="#" class="btn btn-primary float-right">Accept</a>
+                            <strong>Terms Updated</strong><br>
+                            We updated our Terms of Service since your last visit. You can still read last accepted Terms of Service (old).
+                        </div>
+                    </div>
+                </div>
                 @yield('content')
             </main>
         </div>

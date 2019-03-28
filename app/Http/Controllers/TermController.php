@@ -7,6 +7,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Session;
+use App\Events\TermsUpdated as TermsUpdatedEvent;
 
 class TermController extends Controller {
 
@@ -57,7 +58,12 @@ class TermController extends Controller {
             $term->published_at = date('Y-m-d H:i:s');
         }
 
-        $term->save();
+        if ($term->save() && $request->input('publish')) {
+            event(new TermsUpdatedEvent($term));
+        }
+
+        Session::flash('alert', ['class' => 'success', 'message' => 'Terms added successfully!']);
+        return redirect('terms');
     }
 
     /**
@@ -106,7 +112,10 @@ class TermController extends Controller {
             $term->published_at = date('Y-m-d H:i:s');
         }
 
-        $term->save();
+        if ($term->save() && $request->input('publish')) {
+            event(new TermsUpdatedEvent($term));
+        }
+
         Session::flash('alert', ['class' => 'success', 'message' => 'Terms updated successfully!']);
         return redirect('terms');
     }

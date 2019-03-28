@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider {
         'Illuminate\Auth\Events\Lockout' => [
             'App\Listeners\LockoutEventListener',
         ],
+        'App\Events\TermsUpdated' => [
+            'App\Listeners\SendTermsUpdatedNotification',
+        ],
     ];
 
     /**
