@@ -16,7 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail {
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone_number', 'terms_accepted_at'
+        'name', 'email', 'password', 'phone_number', 'terms_accepted_at', 'terms_id',
     ];
 
     /**
@@ -41,6 +41,10 @@ class User extends Authenticatable implements MustVerifyEmail {
     public function markEmailAsUnverified() {
         $this->attributes['email_verified_at'] = null;
         $this->sendEmailVerificationNotification();
+    }
+    
+    public function getAcceptedTermsId(){
+        return $this->terms_id;
     }
 
 }

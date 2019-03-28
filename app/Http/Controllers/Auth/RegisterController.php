@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Term;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -65,12 +66,15 @@ use RegistersUsers;
      * @return \App\User
      */
     protected function create(array $data) {
+        $term = Term::orderBy('published_at', 'desc')->take(1)->get()->first();
+
         return User::create([
                     'name' => $data['name'],
                     'email' => $data['email'],
                     'password' => Hash::make($data['password']),
                     'phone_number' => $data['phone_number'],
                     'terms_accepted_at' => date('Y-m-d H:i:s'),
+                    'terms_id' => $term->id,
         ]);
     }
 

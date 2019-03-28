@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\User;
+use App\Term;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller {
 
@@ -14,7 +16,7 @@ class UserController extends Controller {
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth');
+        $this->middleware(['auth']);
     }
 
     /**
@@ -161,6 +163,15 @@ class UserController extends Controller {
         } else {
             return 0;
         }
+    }
+    
+    public function accept_actual_terms(){
+        $term = Term::orderBy('published_at', 'desc')->take(1)->get()->first();
+        $user = User::findOrFail(Auth::id());
+        $user->terms_id = $term->id;
+        $user->terms_accepted_at = date('Y-m-d H:i:s');
+        $user->save();
+        return redirect()->back();
     }
 
 }

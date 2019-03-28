@@ -16,7 +16,6 @@ class TosController extends Controller {
             $old_terms->shift(); // remove first item from colection
         }
         
-        
         return view('tos.view')->with(['term' => $term, 'old_terms'=>$old_terms]);
     }
 

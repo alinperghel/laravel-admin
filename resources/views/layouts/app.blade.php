@@ -82,15 +82,17 @@
 
             <main class="py-4">
                 @auth
+                @if(Session::get('terms'))
                 <div class="row">
                     <div class="col-md-12">
                         <div class="alert alert-info" role="alert">
-                            <a href="#" class="btn btn-primary float-right">Accept</a>
+                            <a href="{{route('users.accept_actual_terms')}}" class="btn btn-primary float-right">Accept</a>
                             <strong>Terms Updated</strong><br>
-                            We updated our Terms of Service since your last visit. You can still read last accepted Terms of Service (old).
+                            We updated our <a href="{{route('tos.history', ['id'=>Session::get('terms.current')])}}">Terms of Service</a> since your last visit. You can still read last accepted <a href="{{route('tos.history', ['id'=>Session::get('terms.old')])}}">Terms of Service (old)</a>.
                         </div>
                     </div>
                 </div>
+                @endif
                 @endauth
                 @yield('content')
             </main>

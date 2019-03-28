@@ -77,7 +77,7 @@ if (count($errors) > 0) {
                         <div class="form-group row justify-content-center">
                             <input type="hidden" name="terms" value="0">
                             <input id="terms-accepted" type="checkbox" class="form-check" name="terms" value="1">
-                            <label for="terms-accepted" class="col-md-4 col-form-label text-md-right">{{ __('Accept our Terms of Service') }}</label>
+                            <label for="terms-accepted" class="col-md-4 col-form-label text-md-right">{{ __('Accept our ') }} <a href="{{route('tos')}}">{{__('Terms of Service')}}</a></label>
                             @if ($errors->has('terms'))
 
                             <strong style="color: red">{{ $errors->first('terms') }}</strong>
