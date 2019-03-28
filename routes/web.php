@@ -21,4 +21,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('users/verify/{user}', 'UserController@verify')->name('users.verify');
 Route::get('users/unverify/{user}', 'UserController@unverify')->name('users.unverify');
+Route::get('users/search', 'UserController@search')->name('users.search');
 Route::resource('users', 'UserController');

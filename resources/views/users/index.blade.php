@@ -7,10 +7,23 @@
             <div class="card">
                 <div class="card-header">Users</div>
                 <div class="card-body">
+
                     <div class="module-actions">
-                        <a class="btn btn-success" href="{{ route('users.create') }}">
-                            {{ __('Add User') }}
-                        </a>
+                        <div class="row">
+                            <div class ="col-md-6">
+                                <a class="btn btn-success" href="{{ route('users.create') }}">
+                                    {{ __('Add User') }}
+                                </a>
+                            </div>
+                            <div class ="col-md-6">
+                                <div class="form-group row">
+                                    <label for="search" class="col-md-4 col-form-label text-md-right">{{ __('Live Search') }}</label>
+                                    <div class="col-md-6">
+                                        <input id="search" type="text" class="form-control" name="search" value="" autofocus>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <hr>
                     <table class="table table-hover">
@@ -22,8 +35,7 @@
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-
+                        <tbody id="users">
                             @foreach ($users as $user)
                             <tr>
                                 <th scope="row">{{ $user->id }}</th>
@@ -55,8 +67,26 @@
 <script>
     $(document).ready(function () {
 
+        // search
+        $('#search').on('keyup', function () {
+            var filter = $(this).val();
+            var url = "{{ url('users/search') }}";
+            
+            $('#users').empty();
+            $.get(url, {'filter': filter}, function (data) {
+                //console.log(filter);
+                if (data != 0) {
+                    $('#users').append(data);
+                }else{
+                    $('#users').append("<tr><td colspan=\"4\">No users matching search filter</td></tr>");
+                }
+
+            });
+
+        });
+
         // delete user
-        $(".delete-user").click(function (e) {
+        $('.delete-user').click(function (e) {
             e.preventDefault();
             var row = $(this).parent().parent();
             var url = $(this).attr('href');
