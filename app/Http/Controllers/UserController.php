@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\User;
 
 class UserController extends Controller {
@@ -23,7 +24,6 @@ class UserController extends Controller {
      */
     public function index() {
         return view('users/index')->with('users', User::all());
-        ;
     }
 
     /**
@@ -62,7 +62,8 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        echo 'Edit user ' . $id;
+        $user = User::findOrFail($id);
+        return view('users/edit')->with('user', $user);
     }
 
     /**
@@ -73,7 +74,20 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        //
+        
+        $user = User::find($id);
+        
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+        ]);
+        
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->phone_number = $request->get('phone_number');
+        $user->save();
+        
+        return redirect('users');
     }
 
     /**
