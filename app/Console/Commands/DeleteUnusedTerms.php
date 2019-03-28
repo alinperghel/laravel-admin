@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use \App\User;
+use \App\Term;
 
 class DeleteUnusedTerms extends Command
 {
@@ -11,14 +13,14 @@ class DeleteUnusedTerms extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'terms:delete_unused';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Delete unused terms from database';
 
     /**
      * Create a new command instance.
@@ -37,6 +39,14 @@ class DeleteUnusedTerms extends Command
      */
     public function handle()
     {
-        //
+        $users = User::all();
+        $used_terms_id = $users->unique('terms_id');
+        $terms = Term::orderBy('published_at', 'desc')->where('published_at', '!=', null)->get();
+        
+        foreach($terms as $term){
+            if(count($used_terms_id->whereIn('terms_id', $term->id))==0){
+                $term->delete();
+            }
+        }
     }
 }
