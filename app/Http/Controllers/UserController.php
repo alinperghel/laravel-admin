@@ -83,9 +83,14 @@ class UserController extends Controller {
         ]);
         
         $user->name = $request->get('name');
+        if($user->email != $request->get('email')){
+            $user->markEmailAsUnverified();
+        }
         $user->email = $request->get('email');
+        
         $user->phone_number = $request->get('phone_number');
         $user->save();
+        
         
         return redirect('users');
     }
@@ -113,7 +118,7 @@ class UserController extends Controller {
 
     public function unverify($id) {
         $user = User::find($id);
-        $user->email_verified_at = null;
+        $user->markEmailAsUnverified();
         $user->save();
         //return verify url
         return route('users.verify', $id);
