@@ -12,7 +12,7 @@ class TosController extends Controller {
 
         $old_terms = Term::orderBy('published_at', 'desc')->where('published_at', '!=', null)->get();
         
-        if (count($old_terms) > 1) {
+        if (count($old_terms) > 0) {
             $old_terms->shift(); // remove first item from colection
         }
         

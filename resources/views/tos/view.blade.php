@@ -11,7 +11,7 @@
                             {{$term->content}}
                             <hr>
                             Published date: {{$term->published_at}}
-                            @if(isset($old_terms))
+                            @if(count($old_terms)> 0)
                             <hr>
                             Terms History:<br>
                             @foreach($old_terms as $old_term)
