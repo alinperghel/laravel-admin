@@ -11,9 +11,9 @@
                     <div class="module-actions">
                         <div class="row">
                             <div class ="col-md-6">
-                                <a class="btn btn-success" href="{{ route('users.create') }}">
+                                <!--<a class="btn btn-success" href="{{ route('users.create') }}">
                                     {{ __('Add User') }}
-                                </a>
+                                </a>-->
                             </div>
                             <div class ="col-md-6">
                                 <div class="form-group row">
