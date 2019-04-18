@@ -86,7 +86,7 @@
         });
 
         // delete user
-        $('.delete-user').click(function (e) {
+        $('#users').on('click', '.delete-user', function (e) {
             e.preventDefault();
             var row = $(this).parent().parent();
             var url = $(this).attr('href');
